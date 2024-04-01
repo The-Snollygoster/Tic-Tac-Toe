@@ -1,12 +1,12 @@
-const board = (function () {
+const Board = (function () {
     const board = [[0,0,0],[0,0,0],[0,0,0]];
 
     const print = () => console.log(board);
 
     const cellValue = (row, column) => {return board[row-1][column-1]};
     
-    const pick = (row, column) => {board[(row-1)].splice((column-1), 1, players.getToken());
-        return console.log(board), players.switchTurn();
+    const pick = (row, column) => {board[(row-1)].splice((column-1), 1, Controller.getToken());
+        return console.log(board), Controller.switchTurn();
     };
 
     return {print, pick, cellValue};
@@ -16,28 +16,27 @@ const board = (function () {
 
 // I then need to add a win condition and checking after each pick
 
-const players = (function () {
-    let playerOne = 'Player One';
-    let playerTwo = 'Player Two';
+const Controller = (function () {
+    const players = [{name: 'Player One', token: 1}, {name: 'Player Two', token: 2}];
+    let activePlayer = players[0];
     let token = 0;
-    let activePlayer = playerOne;
 
-    console.log(`It is ${activePlayer}'s turn.`)
+    console.log(`It is ${activePlayer.name}'s turn.`)
 
-    const getToken = () => {if (activePlayer === playerOne) {
-        token = 1;
-    } else if (activePlayer === playerTwo) {
-        token = 2;
-    }
-    return token};
-    // this getToken might be moved to gameController together with a getValue function
+    const getToken = () => {if (activePlayer === players[0]) {
+            return players[0].token;
+        } else if (activePlayer === players[1]) {
+            return players[1].token;
+        }
+    };
 
-    const getActivePlayer = () => console.log(activePlayer);
-    const switchTurn = () => {activePlayer === playerOne ? activePlayer = playerTwo : activePlayer = playerOne;
-        console.log(`It is ${activePlayer}'s turn.`)
+    const getActivePlayer = () => console.log(activePlayer.name);
+
+    const switchTurn = () => {activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
+        console.log(`It is ${activePlayer.name}'s turn.`)
         };
 
     return {getToken, getActivePlayer, switchTurn}
 })();
 
-// board.pick(2,2);
+// Board.pick(2,2);
