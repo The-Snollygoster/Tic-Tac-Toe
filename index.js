@@ -1,31 +1,29 @@
-const Board = (function () {
-    const board = [[0,0,0],[0,0,0],[0,0,0]];
-    const getBoard = () => board;
-    const print = () => console.log(board);
-    const cell = (row, column) => {return board[row-1][column-1]};
+const board = (function () {
+    const gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
+    const getBoard = () => gameBoard;
+    const print = () => console.log(gameBoard);
+    const cell = (row, column) => {return gameBoard[row-1][column-1]};
     
     const pick = (row, column) => 
         {if (cell(row,column) === 0) {
-            board[(row-1)].splice((column-1), 1, Controller.getToken());
-            Controller.switchTurn();
+            gameBoard[(row-1)].splice((column-1), 1, game.getToken());
+            game.switchTurn();
         } else {
             console.log('Space already taken, please choose another!');
         }
-        return console.log(board)
+        return console.log(gameBoard)
     };
 
     return {getBoard, print, pick, cell};
 })();
 
-// I need to add the logic to pick that you cannot pick an already selected cell
-
 // I then need to add a win condition and checking after each pick
 
-const Controller = (function () {
+const game = (function () {
     const players = [{name: 'Player One', token: 1}, {name: 'Player Two', token: 2}];
     let activePlayer = players[0];
 
-    console.log(`It is ${activePlayer.name}'s turn.`)
+    const playerNameChange = (playerIndex, name) => players[(playerIndex-1)].name = name;
 
     const getToken = () => 
         {if (activePlayer === players[0]) {
@@ -41,7 +39,10 @@ const Controller = (function () {
         console.log(`It is ${activePlayer.name}'s turn.`)
         };
 
-    return {getToken, getActivePlayer, switchTurn}
+    const playRound = () => { return console.log(board.print()), console.log(`It is ${activePlayer.name}'s turn.`)};
+
+    return {playerNameChange, getToken, getActivePlayer, switchTurn, playRound}
 })();
 
-// Board.pick(2,2);
+// board.pick(2,2);
+// game.playerNameChange(1, '')
