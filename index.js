@@ -1,15 +1,20 @@
 const Board = (function () {
     const board = [[0,0,0],[0,0,0],[0,0,0]];
-
+    const getBoard = () => board;
     const print = () => console.log(board);
-
-    const cellValue = (row, column) => {return board[row-1][column-1]};
+    const cell = (row, column) => {return board[row-1][column-1]};
     
-    const pick = (row, column) => {board[(row-1)].splice((column-1), 1, Controller.getToken());
-        return console.log(board), Controller.switchTurn();
+    const pick = (row, column) => 
+        {if (cell(row,column) === 0) {
+            board[(row-1)].splice((column-1), 1, Controller.getToken());
+            Controller.switchTurn();
+        } else {
+            console.log('Space already taken, please choose another!');
+        }
+        return console.log(board)
     };
 
-    return {print, pick, cellValue};
+    return {getBoard, print, pick, cell};
 })();
 
 // I need to add the logic to pick that you cannot pick an already selected cell
@@ -19,11 +24,11 @@ const Board = (function () {
 const Controller = (function () {
     const players = [{name: 'Player One', token: 1}, {name: 'Player Two', token: 2}];
     let activePlayer = players[0];
-    let token = 0;
 
     console.log(`It is ${activePlayer.name}'s turn.`)
 
-    const getToken = () => {if (activePlayer === players[0]) {
+    const getToken = () => 
+        {if (activePlayer === players[0]) {
             return players[0].token;
         } else if (activePlayer === players[1]) {
             return players[1].token;
