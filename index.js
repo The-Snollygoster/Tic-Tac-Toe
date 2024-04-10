@@ -9,6 +9,7 @@ const board = (function () {
         if (gameBoard[row-1][column-1] === 0) {
             gameBoard[(row-1)].splice((column-1), 1, game.getToken());
             if (game.winCheck() === '') {
+                render.boardRender();
                 game.switchTurn();
             };            
         } else {
@@ -57,12 +58,34 @@ const game = (function () {
 
 // This will be my function that renders the game into HTML/DOM.
 const render = (function () {
+    const container = document.querySelector('.container');
 
-    return {};
+    const boardRender = () => {
+        container.innerHTML = '';
+        board.getBoard().forEach(function(row) {
+            row.forEach((value) => {
+                if (value === 1) {
+                    const div = document.createElement('div');
+                    div.innerHTML = '<img src="./icons/circle.svg" alt="Circle">';
+                    container.appendChild(div);
+                } else if (value === 2) {
+                    const div = document.createElement('div');
+                    div.innerHTML = '<img src="./icons/x.svg" alt="Cross">';
+                    container.appendChild(div);
+                } else {
+                    const div = document.createElement('div');
+                    container.appendChild(div);
+                };
+            });
+        });
+    };
+    return {boardRender};
 })();
 
 game.playRound();
+render.boardRender();
 
 // board.pick(2,2);
 // game.playerNameChange(1, '')
 // game.winCheck()
+// render.boardRender();
