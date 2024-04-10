@@ -1,3 +1,16 @@
+/* Stone colour palette */
+/* 50 -#fafaf9 */
+/* 100 -#f5f5f4 */
+/* 200 -#e7e5e4 */
+/* 300 -#d6d3d1 */
+/* 400 -#a8a29e */
+/* 500 -#78716c */
+/* 600 -#57534e */
+/* 700 -#44403c */
+/* 800 -#292524 */
+/* 900 -#1c1917 */
+/* 950 -#0c0a09 */
+
 @font-face {
 	font-family: 'gothic';
 	src: url(./fonts/gothic/gothic.woff);
@@ -14,24 +27,51 @@ body {
     align-items: center;
 }
 
-.header {
-    margin-bottom: 40px;
-}
-
 .container {
     display: grid;
-    gap: 10px;
-    grid-template: 10vw 10vw 10vw / 25vh 25vh 25vh;
+    gap: 5px;
+    grid-template: 15vh 15vh 15vh / 30vw 30vw 30vw;
     background-color: #171717;
 }
 
 .container > div {
-    background-color: #737373;
+    background-color: #44403c;
 }
 
-.play {
+.container > div:hover {
+    background-color: #78716c;
+    cursor: pointer;
+}
+
+.play,
+.reset {
     height: 30px;
     width: 150px;
-    margin-top: 40px;
+    margin: 25px;
     padding: 5px;
+    border-radius: 5px;
+    /* border: 1px solid #171717; */
+    border: none;
+    background: none;
+    color: #d6d3d1;
+    font-family: 'gothic';
+    cursor: pointer;
+    transform: rotate(-1.5deg);
+}
+
+button:after {
+    content: ' >>>'
+}
+
+button:hover,
+button:active {
+    background: #e7e5e4;
+    color: #44403c;
+}
+
+@media only screen and (min-width: 700px) {
+    .container {
+        gap: 10px;
+        grid-template: 20vh 20vh 20vh / 10vw 10vw 10vw;
+    }
 }
