@@ -8,8 +8,9 @@ const board = (function () {
     const pick = (row, column) => {
         if (gameBoard[row-1][column-1] === 0) {
             gameBoard[(row-1)].splice((column-1), 1, game.getToken());
-            // game.winCheck();
-            game.switchTurn();
+            if (game.winCheck() === '') {
+                game.switchTurn();
+            };            
         } else {
             console.log('Space already taken, please choose another!');
         };
@@ -29,15 +30,26 @@ const game = (function () {
     const playRound = () => { return console.log(board.print()), console.log(`It is ${activePlayer.name}'s turn.`)};
 
     const winCheck = () => {
+        let winningPlayer = '';
         const winArray = board.getBoard().concat(board.getColumns(),board.getDiag())
 
         winArray.forEach(function(subarray) {
             if (subarray.every((value) => value === 1)) {
-                return console.log(`We have a winner! Congratulations ${players[0].name}`)
+                winningPlayer = 'P1';
             } else if (subarray.every((value) => value === 2)) {
-                return console.log(`We have a winner! Congratulations ${players[1].name}`)
-            }
+                winningPlayer = 'P2';
+            };
         });
+
+        if (winningPlayer == 'P1') {
+            console.log(`Congratulations ${players[0].name} has won the game!`)
+        } else if (winningPlayer == 'P2') {
+            console.log(`Congratulations ${players[1].name} has won the game!`)
+        } else {
+            console.log('No Winner Yet!')
+        }
+
+        return winningPlayer;
     };
 
     return {playerNameChange, getToken, getActivePlayer, switchTurn, playRound, winCheck}
@@ -49,6 +61,7 @@ const render = (function () {
 })();
 
 game.playRound();
+
 // board.pick(2,2);
 // game.playerNameChange(1, '')
 // game.winCheck()
