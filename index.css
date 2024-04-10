@@ -1,3 +1,11 @@
+@font-face {
+	font-family: 'gothic';
+	src: url(./fonts/gothic/gothic.woff);
+}
+
 body {
     box-sizing: border-box;
+    background-color: #202225;
+    color: #99aab5;
+    font-family: 'gothic';
 }

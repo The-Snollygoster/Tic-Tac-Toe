@@ -14,7 +14,7 @@ const board = (function () {
         } else {
             console.log('Space already taken, please choose another!');
         };
-        return console.log(gameBoard)
+        return console.log(gameBoard);
     };
 
     return {getBoard, print, pick, getDiag, getColumns};
@@ -31,7 +31,7 @@ const game = (function () {
 
     const winCheck = () => {
         let winningPlayer = '';
-        const winArray = board.getBoard().concat(board.getColumns(),board.getDiag())
+        const winArray = board.getBoard().concat(board.getColumns(),board.getDiag());
 
         winArray.forEach(function(subarray) {
             if (subarray.every((value) => value === 1)) {
@@ -42,22 +42,23 @@ const game = (function () {
         });
 
         if (winningPlayer == 'P1') {
-            console.log(`Congratulations ${players[0].name} has won the game!`)
+            console.log(`Congratulations ${players[0].name} has won the game!`);
         } else if (winningPlayer == 'P2') {
-            console.log(`Congratulations ${players[1].name} has won the game!`)
+            console.log(`Congratulations ${players[1].name} has won the game!`);
         } else {
-            console.log('No Winner Yet!')
-        }
+            console.log('No Winner Yet!');
+        };
 
         return winningPlayer;
     };
 
-    return {playerNameChange, getToken, getActivePlayer, switchTurn, playRound, winCheck}
+    return {playerNameChange, getToken, getActivePlayer, switchTurn, playRound, winCheck};
 })();
 
 // This will be my function that renders the game into HTML/DOM.
 const render = (function () {
 
+    return {};
 })();
 
 game.playRound();
