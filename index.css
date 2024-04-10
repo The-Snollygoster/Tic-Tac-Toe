@@ -5,7 +5,33 @@
 
 body {
     box-sizing: border-box;
-    background-color: #202225;
-    color: #99aab5;
+    background-color: #44403c;
+    color: #d6d3d1;
     font-family: 'gothic';
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.container {
+    display: grid;
+    gap: 10px;
+    grid-template: 10vw 10vw 10vw / 25vh 25vh 25vh;
+    background-color: #171717;
+}
+
+.container > div {
+    background-color: #737373;
+}
+
+.play {
+    height: 30px;
+    width: 150px;
+    margin-top: 40px;
+    padding: 5px;
 }
