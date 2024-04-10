@@ -32,6 +32,7 @@ body {
     gap: 5px;
     grid-template: 15vh 15vh 15vh / 30vw 30vw 30vw;
     background-color: #171717;
+    opacity: 0;
 }
 
 .container > div {
@@ -66,6 +67,10 @@ body {
     transform: rotate(-1.5deg);
 }
 
+.reset {
+    opacity: 0;
+}
+
 button:after {
     content: ' >>>'
 }
@@ -79,6 +84,6 @@ button:active {
 @media only screen and (min-width: 700px) {
     .container {
         gap: 10px;
-        grid-template: 20vh 20vh 20vh / 10vw 10vw 10vw;
+        grid-template: 200px 200px 200px / 200px 200px 200px;
     }
 }
