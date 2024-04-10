@@ -1,5 +1,7 @@
 const board = (function () {
     const gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
+    const getDiag = () => [[gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]], [gameBoard[0][2], gameBoard[1][1], gameBoard[2][0]]];
+    const getColumns = () => [[gameBoard[0][0], gameBoard[1][0], gameBoard[2][0]], [gameBoard[0][1], gameBoard[1][1], gameBoard[2][1]], [gameBoard[0][2], gameBoard[1][2], gameBoard[2][2]]];
     const getBoard = () => gameBoard;
     const print = () => console.log(gameBoard);
     
@@ -14,7 +16,7 @@ const board = (function () {
         return console.log(gameBoard)
     };
 
-    return {getBoard, print, pick};
+    return {getBoard, print, pick, getDiag, getColumns};
 })();
 
 const game = (function () {
@@ -26,28 +28,27 @@ const game = (function () {
     const switchTurn = () => {activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0]; console.log(`It is ${activePlayer.name}'s turn.`)};
     const playRound = () => { return console.log(board.print()), console.log(`It is ${activePlayer.name}'s turn.`)};
 
-    // Win Checking (only checked for winning rows so far)
     const winCheck = () => {
-        let current = board.getBoard();
-        if (current[0].every((value) => value === 1) || current[1].every((value) => value === 1) || current[2].every((value) => value === 1)) {
-            console.log(`We have a winner! Congratulations ${players[0].name}`)
-        } else if (current[0].every((value) => value === 2) || current[1].every((value) => value === 2) || current[2].every((value) => value === 2)) {
-            console.log(`We have a winner! Congratulations ${players[1].name}`)
-        } else {
-            console.log('No winner yet!')
-        };
+        const winArray = board.getBoard().concat(board.getColumns(),board.getDiag())
+
+        winArray.forEach(function(subarray) {
+            if (subarray.every((value) => value === 1)) {
+                return console.log(`We have a winner! Congratulations ${players[0].name}`)
+            } else if (subarray.every((value) => value === 2)) {
+                return console.log(`We have a winner! Congratulations ${players[1].name}`)
+            }
+        });
     };
 
     return {playerNameChange, getToken, getActivePlayer, switchTurn, playRound, winCheck}
 })();
-
-game.playRound();
 
 // This will be my function that renders the game into HTML/DOM.
 const render = (function () {
 
 })();
 
+game.playRound();
 // board.pick(2,2);
 // game.playerNameChange(1, '')
 // game.winCheck()
