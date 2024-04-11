@@ -28,6 +28,8 @@ const board = (function () {
 const game = (function () {
     const players = [{name: 'Player One', token: 1}, {name: 'Player Two', token: 2}];
     let activePlayer = players[0];
+    const dialog = document.querySelector('dialog');
+    const winner = document.getElementById('winner');
     const getActivePlayer = () => console.log(activePlayer.name);
     const getToken = () => activePlayer === players[0] ? players[0].token : players[1].token;
     const switchTurn = () => {activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0]; console.log(`It is ${activePlayer.name}'s turn.`)};
@@ -48,8 +50,12 @@ const game = (function () {
 
         if (winningPlayer == 'P1') {
             console.log(`Congratulations ${players[0].name} has won the game!`);
+            dialog.showModal();
+            winner.textContent = `Congratulations ${players[0].name}, you won!`
         } else if (winningPlayer == 'P2') {
             console.log(`Congratulations ${players[1].name} has won the game!`);
+            dialog.showModal();
+            winner.textContent = `Congratulations ${players[1].name}, you won!`
         } else {
             console.log('No Winner Yet!');
         };
@@ -102,6 +108,9 @@ const render = (function () {
 const playButton = document.querySelector('.play');
 const p1NameChange = document.getElementById('p1');
 const p2NameChange = document.getElementById('p2');
+const dialog = document.querySelector('dialog');
+const newGame = document.querySelector('dialog #newGame');
+const closeButton = document.querySelector('dialog #close');
 
 playButton.addEventListener('click', () => {
     board.resetBoard();
@@ -116,4 +125,14 @@ p1NameChange.addEventListener('click', () => {
 p2NameChange.addEventListener('click', () => {
     let name = prompt('What is player twos name?', '')
     game.playerNameChange(1, `${name}`)
+});
+
+newGame.addEventListener('click', () => {
+    board.resetBoard();
+    game.playRound();
+    dialog.close();
+});
+
+closeButton.addEventListener('click', () => {
+    dialog.close();
 });

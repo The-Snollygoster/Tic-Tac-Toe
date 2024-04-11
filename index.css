@@ -78,6 +78,8 @@ body {
     height: 80%;
 }
 
+/* Button styling */
+
 .play,
 .nameChange {
     height: 50px;
@@ -86,7 +88,6 @@ body {
     margin-bottom: 50px;
     padding: 5px;
     border-radius: 5px;
-    /* border: 1px solid #171717; */
     border: none;
     background: none;
     color: #d6d3d1;
@@ -99,8 +100,7 @@ button:after {
     content: ' >>>'
 }
 
-button:hover,
-button:active {
+button:hover {
     background: #e7e5e4;
     color: #44403c;
 }
@@ -110,4 +110,44 @@ button:active {
         gap: 10px;
         grid-template: 200px 200px 200px / 200px 200px 200px;
     }
+}
+
+/* Dialog styling */
+
+::backdrop {
+    background-color: #44403c;
+    opacity: 0.7;
+}
+
+.dialog {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #d6d3d1;
+    color: #0c0a09;
+    text-align: center;
+}
+
+.winner {
+    font-size: 1.5rem;
+}
+
+#newGame,
+#close {
+    height: 50px;
+    width: 150px;
+    margin: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background: none;
+    color: #0c0a09;
+    font-family: 'gothic';
+    cursor: pointer;
+    transform: rotate(-1.5deg);
+}
+
+#newGame:hover,
+#close:hover {
+    background: #e7e5e4;
+    color: #44403c;
 }

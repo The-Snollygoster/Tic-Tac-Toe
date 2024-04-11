@@ -12,14 +12,14 @@
     <div class="parentWrapper">
         <div class="sideboard">
             <div class="wrapper">
-                <button class="nameChange" id="p1">Change Player One Name</button>
                 <h6 id="0">Player One</h6>
                 <img src="./icons/circle.svg" alt="Circle">
+                <button class="nameChange" id="p1">Change Name</button>
             </div>
             <div class="wrapper">
-                <button class="nameChange" id="p2">Change Player Two Name</button>
                 <h6 id="1">Player Two</h6>
                 <img src="./icons/x.svg" alt="Cross">
+                <button class="nameChange" id="p2">Change Name</button>
             </div>
         </div>
         <div class="childWrapper">
@@ -28,5 +28,13 @@
         </div>
         <div class="sideboard"></div>
     </div>
+
+    <dialog class="dialog">
+        <h1 id="winner">CONGRATULATIONS!</h1>
+        <div class="buttonWrapper">
+            <button id="newGame">New Game</button>
+            <button id="close">close</button>
+        </div>
+    </dialog>
 </body>
 </html>
