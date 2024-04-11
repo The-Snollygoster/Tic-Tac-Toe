@@ -1,19 +1,3 @@
-const playButton = document.querySelector('.play')
-const cell = document.querySelectorAll('.cell')
-
-playButton.addEventListener('click', () => {
-    game.playRound();
-});
-
-// currently trying to figure out how to add array index to each cell so that when a cell is clicked 
-// it corresponds to the correct array index on the board and invokes 'pick' with the correct passed index
-// pretty sure I can just use index in the forEach methods in the board render (which is always the second param)
-// to log the current index of the cell from the array and gift it to the cell as an ID? and then I'll take that 
-// ID contents and use it to pass into board.pick.
-cell.forEach(addEventListener('click', () => {
-    // board.pick(,);
-}));
-
 const board = (function () {
     const gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
     const getDiag = () => [[gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]], [gameBoard[0][2], gameBoard[1][1], gameBoard[2][0]]];
@@ -22,8 +6,8 @@ const board = (function () {
     const print = () => console.log(gameBoard);
     
     const pick = (row, column) => {
-        if (gameBoard[row-1][column-1] === 0) {
-            gameBoard[(row-1)].splice((column-1), 1, game.getToken());
+        if (gameBoard[row][column] === 0) {
+            gameBoard[(row)].splice((column), 1, game.getToken());
             if (game.winCheck() === '') {
                 render.boardRender();
                 game.switchTurn();
@@ -72,7 +56,6 @@ const game = (function () {
     return {playerNameChange, getToken, getActivePlayer, switchTurn, playRound, winCheck};
 })();
 
-// This will be my function that renders the game into HTML/DOM.
 const render = (function () {
     const container = document.querySelector('.container');
     const reset = document.querySelector('.reset');
@@ -81,28 +64,44 @@ const render = (function () {
         container.innerHTML = '';
         container.setAttribute('style', 'opacity: 1;');
         reset.setAttribute('style', 'opacity: 1;')
-        board.getBoard().forEach(function(row) {
-            row.forEach((value, index) => {
+        board.getBoard().forEach((row, rowIndex) => {
+            row.forEach((value, cellIndex) => {
                 if (value === 1) {
                     const div = document.createElement('div');
                     div.innerHTML = '<img src="./icons/circle.svg" alt="Circle">';
                     div.classList.add('cell');
+                    div.setAttribute('id', `${rowIndex},${cellIndex}`)
                     container.appendChild(div);
                 } else if (value === 2) {
                     const div = document.createElement('div');
                     div.innerHTML = '<img src="./icons/x.svg" alt="Cross">';
                     div.classList.add('cell');
+                    div.setAttribute('id', `${rowIndex},${cellIndex}`)
                     container.appendChild(div);
                 } else {
                     const div = document.createElement('div');
                     div.classList.add('cell');
+                    div.setAttribute('id', `${rowIndex},${cellIndex}`)
                     container.appendChild(div);
                 };
+            });
+        });
+        const cell = document.querySelectorAll('.cell')
+        cell.forEach((square) => {
+            square.addEventListener('click', () => {
+                let index = square.id.split(',').map((x) => Number(x));
+                board.pick(index[0], index[1]);
             });
         });
     };
     return {boardRender};
 })();
+
+const playButton = document.querySelector('.play')
+
+playButton.addEventListener('click', () => {
+    game.playRound();
+});
 
 // board.pick(2,2);
 // game.playerNameChange(1, '')
