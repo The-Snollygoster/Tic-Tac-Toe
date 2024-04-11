@@ -1,24 +1,28 @@
 const board = (function () {
-    const gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
+    let gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
     const getDiag = () => [[gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]], [gameBoard[0][2], gameBoard[1][1], gameBoard[2][0]]];
     const getColumns = () => [[gameBoard[0][0], gameBoard[1][0], gameBoard[2][0]], [gameBoard[0][1], gameBoard[1][1], gameBoard[2][1]], [gameBoard[0][2], gameBoard[1][2], gameBoard[2][2]]];
     const getBoard = () => gameBoard;
     const print = () => console.log(gameBoard);
+    const resetBoard = () => gameBoard = [[0,0,0],[0,0,0],[0,0,0]];
     
     const pick = (row, column) => {
         if (gameBoard[row][column] === 0) {
             gameBoard[(row)].splice((column), 1, game.getToken());
-            if (game.winCheck() === '') {
+            let win = game.winCheck()
+            if (win === 'P1' || win === 'P2') {
+                render.boardRender();
+            } else {
                 render.boardRender();
                 game.switchTurn();
-            };            
+            };
         } else {
             console.log('Space already taken, please choose another!');
         };
         return console.log(gameBoard);
     };
 
-    return {getBoard, print, pick, getDiag, getColumns};
+    return {getBoard, print, pick, getDiag, getColumns, resetBoard};
 })();
 
 const game = (function () {
@@ -33,7 +37,7 @@ const game = (function () {
     const winCheck = () => {
         let winningPlayer = '';
         const winArray = board.getBoard().concat(board.getColumns(),board.getDiag());
-
+        
         winArray.forEach(function(subarray) {
             if (subarray.every((value) => value === 1)) {
                 winningPlayer = 'P1';
@@ -58,12 +62,10 @@ const game = (function () {
 
 const render = (function () {
     const container = document.querySelector('.container');
-    const reset = document.querySelector('.reset');
 
     const boardRender = () => {
         container.innerHTML = '';
         container.setAttribute('style', 'opacity: 1;');
-        reset.setAttribute('style', 'opacity: 1;')
         board.getBoard().forEach((row, rowIndex) => {
             row.forEach((value, cellIndex) => {
                 if (value === 1) {
@@ -97,9 +99,11 @@ const render = (function () {
     return {boardRender};
 })();
 
-const playButton = document.querySelector('.play')
+const playButton = document.querySelector('.play');
+const resetButton = document.querySelector('.reset');
 
 playButton.addEventListener('click', () => {
+    board.resetBoard();
     game.playRound();
 });
 
