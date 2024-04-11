@@ -9,7 +9,24 @@
 </head>
 <body>
     <h1 class="header">Tic-Tac-Toe!</h1>
-    <button class="play">Play New Game</button>
-    <div class="container"></div>
+    <div class="parentWrapper">
+        <div class="sideboard">
+            <div class="wrapper">
+                <button class="nameChange" id="p1">Change Player One Name</button>
+                <h6 id="0">Player One</h6>
+                <img src="./icons/circle.svg" alt="Circle">
+            </div>
+            <div class="wrapper">
+                <button class="nameChange" id="p2">Change Player Two Name</button>
+                <h6 id="1">Player Two</h6>
+                <img src="./icons/x.svg" alt="Cross">
+            </div>
+        </div>
+        <div class="childWrapper">
+            <button class="play">Play New Game</button>
+            <div class="container"></div>
+        </div>
+        <div class="sideboard"></div>
+    </div>
 </body>
 </html>

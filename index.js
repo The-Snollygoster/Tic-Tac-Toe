@@ -29,10 +29,10 @@ const game = (function () {
     const players = [{name: 'Player One', token: 1}, {name: 'Player Two', token: 2}];
     let activePlayer = players[0];
     const getActivePlayer = () => console.log(activePlayer.name);
-    const playerNameChange = (playerIndex, name) => players[(playerIndex-1)].name = name;
     const getToken = () => activePlayer === players[0] ? players[0].token : players[1].token;
     const switchTurn = () => {activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0]; console.log(`It is ${activePlayer.name}'s turn.`)};
     const playRound = () => { return render.boardRender(), console.log(board.print()), console.log(`It is ${activePlayer.name}'s turn.`)};
+    const playerNameChange = (playerIndex, name) => {players[playerIndex].name = name, document.getElementById(`${playerIndex}`).textContent = name;}
 
     const winCheck = () => {
         let winningPlayer = '';
@@ -100,14 +100,20 @@ const render = (function () {
 })();
 
 const playButton = document.querySelector('.play');
-const resetButton = document.querySelector('.reset');
+const p1NameChange = document.getElementById('p1');
+const p2NameChange = document.getElementById('p2');
 
 playButton.addEventListener('click', () => {
     board.resetBoard();
     game.playRound();
 });
 
-// board.pick(2,2);
-// game.playerNameChange(1, '')
-// game.winCheck()
-// render.boardRender();
+p1NameChange.addEventListener('click', () => {
+    let name = prompt('What is player ones name?', '')
+    game.playerNameChange(0, `${name}`)
+});
+
+p2NameChange.addEventListener('click', () => {
+    let name = prompt('What is player twos name?', '')
+    game.playerNameChange(1, `${name}`)
+});
